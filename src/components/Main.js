@@ -64,18 +64,31 @@ const Main = (props) => {
                   alt=""
                   style={{ height: "20px", width: "20px" }}
                 />
+                <span> 75 </span>
               </button>
-              <span> 75 </span>
             </li>
             <li>
               <a> 2 comments </a>
             </li>
           </SocialCounts>
-          <button>
-            <img src="/images/like-icon.svg" alt="" />
-            <span> Like </span>
-          </button>
-          <button></button>
+          <SocialActions>
+            <button>
+              <img
+                src="/images/like-icon.svg"
+                alt=""
+                style={{ height: "20px", width: "20px" }}
+              />
+              <span> Like </span>
+            </button>
+            <button>
+              <img
+                src="/images/comment.svg"
+                alt=""
+                style={{ height: "20px", width: "20px" }}
+              />
+              <span> Comment </span>
+            </button>
+          </SocialActions>
         </Article>
       </div>
     </Container>
@@ -258,5 +271,22 @@ const SocialCounts = styled.ul`
     }
   }
 `;
+const SocialActions = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0;
+  min-height: 40px;
+  padding: 4px 8px;
+  button P
+  display: inline-flex;
+  align-items: center;
+  color: #06a662;
+  media(min-width:768px) {
+    span{
+      margin-left: 8px;
+    }
+  }
+  `;
 
 export default Main;
