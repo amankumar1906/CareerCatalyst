@@ -1,7 +1,28 @@
 import styled from "styled-components";
 import PostModal from "./PostModal";
+import { useState } from "react";
+import { connect } from "react-redux";
 
 const Main = (props) => {
+  const [showModal, setShowModal] = useState("close");
+
+  const clickHandler = (event) => {
+    event.preventDefault();
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+    switch (showModal) {
+      case "open":
+        setShowModal("close");
+        break;
+      case "close":
+        setShowModal("open");
+        break;
+      default:
+        setShowModal("close");
+        break;
+    }
+  };
   return (
     <Container>
       <Sharebox>
@@ -92,7 +113,7 @@ const Main = (props) => {
           </SocialActions>
         </Article>
       </div>
-      <PostModal />
+      <PostModal showModal={showModal} clickHandler={clickHandler} />
     </Container>
   );
 };
@@ -291,4 +312,18 @@ const SocialActions = styled.div`
   }
   `;
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+    loading: state.articleState.loading,
+    articles: state.articleState.articles,
+    ids: state.articleState.ids,
+  };
+};
+
+// const mapDispatchToProps = (dispatch) => ({
+//   getArticles: () => dispatch(getArticlesAPI()),
+//   likeHandler: (payload) => dispatch(updateArticleAPI(payload)),
+// });
+
+export default connect(mapStateToProps)(Main);
