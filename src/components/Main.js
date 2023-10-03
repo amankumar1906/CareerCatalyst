@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import PostModal from "./PostModal";
 import { useState } from "react";
-import { connect } from "react-redux";
 
 const Main = (props) => {
   const [showModal, setShowModal] = useState("close");
 
-  const clickHandler = (event) => {
+  const handleClick = (event) => {
     event.preventDefault();
     if (event.target !== event.currentTarget) {
       return;
@@ -29,7 +28,7 @@ const Main = (props) => {
         Share
         <div>
           <img src="/images/user.svg" alt=" " />
-          <button> Start a post </button>
+          <button onClick={handleClick}> Start a post </button>
         </div>
         <div>
           <button>
@@ -113,7 +112,7 @@ const Main = (props) => {
           </SocialActions>
         </Article>
       </div>
-      <PostModal showModal={showModal} clickHandler={clickHandler} />
+      <PostModal showModal={showModal} handleClick={handleClick} />
     </Container>
   );
 };
@@ -312,18 +311,4 @@ const SocialActions = styled.div`
   }
   `;
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.userState.user,
-    loading: state.articleState.loading,
-    articles: state.articleState.articles,
-    ids: state.articleState.ids,
-  };
-};
-
-// const mapDispatchToProps = (dispatch) => ({
-//   getArticles: () => dispatch(getArticlesAPI()),
-//   likeHandler: (payload) => dispatch(updateArticleAPI(payload)),
-// });
-
-export default connect(mapStateToProps)(Main);
+export default Main;
