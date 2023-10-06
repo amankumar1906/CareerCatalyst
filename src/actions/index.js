@@ -34,6 +34,13 @@ export function getUserAuth() {
   };
 }
 
+export function getArticles(payload, id) {
+  return {
+    type: GET_ARTICLES,
+    payload: payload,
+  };
+}
+
 export function signOutAPI() {
   return (dispatch) => {
     auth
@@ -119,5 +126,19 @@ export function postArticleAPI(payload) {
       });
       dispatch(setLoading(false));
     }
+  };
+}
+
+export function getArticlesAPI() {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    let payload;
+    db.collection("articles")
+      .orderBy("actor.date", "desc")
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        dispatch(getArticles(payload));
+      });
+    dispatch(setLoading(false));
   };
 }
